@@ -1,0 +1,40 @@
+h1 {
+  text-align: center;
+}
+
+#emptyImg {
+  text-align: center;
+  display: none;
+}
+
+#calendarBlock {
+  margin: 0 auto;
+}
+
+#calendarBlock label{
+  text-align: center;
+  display: block;
+}
+
+#calendarBlock input{
+  margin: 0 auto;
+  display: block;
+}
+
+.imgGroup {
+  margin: 0 auto;
+  height: 130px;
+  width: 90vw;
+  white-space: nowrap;
+  /* white-space -> 해당하는 요소의 줄바꿈 x */
+  overflow-x: scroll;
+  display: none;
+}
+
+div img{
+  height: 100px;
+  width: 200px;
+  object-fit: scale-down;
+  /* cover -> IE 미지원 */
+  display: inline-block;
+}

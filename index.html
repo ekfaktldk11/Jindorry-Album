@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/index.css" />
+    <title>Jin Album</title>
+    <script>
+      let prevId = '';
+      const imgSelector = (id) => {
+        console.log('execute imgSelector');
+        let item = document.getElementById(id);
+        let groups = document.getElementsByClassName('imgGroup');
+        Array.from(groups).forEach((element) => {
+          element.style.display = 'none';
+        });
+        document.getElementById('emptyImg').style.display = 'none';
+        let selectedImg = document.getElementById(item.value);
+        if (selectedImg) selectedImg.style.display = 'block';
+        else document.getElementById('emptyImg').style.display = 'block';
+      };
+    </script>
+  </head>
+  <body>
+    <h1>진도리의 앨범</h1>
+    <br />
+    <div id="calendarBlock">
+      <label>년월 선택</label><br />
+      <input
+        type="month"
+        id="calendar"
+        name="calendar"
+        onchange="imgSelector(this.id)"
+      /><br />
+    </div>
+    <label id="emptyImg">이미지가 존재하지 않습니다.</label>
+    <div class="imgGroup" id="2021-12">
+      <img
+        src="image/2021/12/KakaoTalk_20220111_144937222.jpg"
+        alt="2021_12_img_0"
+      />
+      <img
+        src="image/2021/12/KakaoTalk_20220111_144937222_01.jpg"
+        alt="2021_12_img_1"
+      />
+      <img
+        src="image/2021/12/KakaoTalk_20220111_144937222_02.jpg"
+        alt="2021_12_img_2"
+      />
+      <img
+        src="image/2021/12/KakaoTalk_20220111_144937222_03.jpg"
+        alt="2021_12_img_3"
+      />
+      <img
+        src="image/2021/12/KakaoTalk_20220111_144937222_04.jpg"
+        alt="2021_12_img_4"
+      />
+    </div>
+    <div class="imgGroup" id="2021-11">
+      <img
+        src="image/2021/11/KakaoTalk_20220111_144851281.jpg"
+        alt="2021_11_img_0"
+      />
+      <img
+        src="image/2021/11/KakaoTalk_20220111_144851281_01.jpg"
+        alt="2021_11_img_2"
+      />
+      <img
+        src="image/2021/11/KakaoTalk_20220111_144851281_02.jpg"
+        alt="2021_11_img_3"
+      />
+      <img
+        src="image/2021/11/KakaoTalk_20220111_144851281_03.jpg"
+        alt="2021_11_img_4"
+      />
+    </div>
+    <div class="imgGroup" id="2020-12">
+      <img
+        src="image/2020/12/KakaoTalk_20220111_145122621.jpg"
+        alt="2020_12_img_0"
+      />
+      <img
+        src="image/2020/12/KakaoTalk_20220111_145122621_01.jpg"
+        alt="2020_12_img_1"
+      />
+      <img
+        src="image/2020/12/KakaoTalk_20220111_145122621_02.jpg"
+        alt="2020_12_img_2"
+      />
+      <img
+        src="image/2020/12/KakaoTalk_20220111_145122621_03.jpg"
+        alt="2020_12_img_3"
+      />
+    </div>
+    <div class="imgGroup" id="2020-11">
+      <img
+        src="image/2020/11/KakaoTalk_20220111_145218633.jpg"
+        alt="2020_11_img_0"
+      />
+      <img
+        src="image/2020/11/KakaoTalk_20220111_145218633_01.jpg"
+        alt="2020_11_img_1"
+      />
+      <img
+        src="image/2020/11/KakaoTalk_20220111_145218633_02.jpg"
+        alt="2020_11_img_2"
+      />
+      <img
+        src="image/2020/11/KakaoTalk_20220111_145218633_03.jpg"
+        alt="2020_11_img_3"
+      />
+      <img
+        src="image/2020/11/KakaoTalk_20220111_145218633_04.jpg"
+        alt="2020_11_img_4"
+      />
+      <img
+        src="image/2020/11/KakaoTalk_20220111_145218633_05.jpg"
+        alt="2020_11_img_5"
+      />
+      <img
+        src="image/2020/11/KakaoTalk_20220111_145218633_06.jpg"
+        alt="2020_11_img_6"
+      />
+    </div>
+  </body>
+</html>
