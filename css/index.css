@@ -26,7 +26,7 @@ h1 {
   height: 130px;
   width: 90vw;
   white-space: nowrap;
-  /* white-space -> 해당하는 요소의 줄바꿈 x */
+  /* white-space: nowrap; -> 해당하는 요소의 줄바꿈 x */
   overflow-x: scroll;
   display: none;
 }

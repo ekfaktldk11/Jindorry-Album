@@ -7,16 +7,13 @@
     <link rel="stylesheet" href="css/index.css" />
     <title>Jin Album</title>
     <script>
-      let prevId = '';
-      const imgSelector = (id) => {
-        console.log('execute imgSelector');
-        let item = document.getElementById(id);
+      const imgSelector = id => {
         let groups = document.getElementsByClassName('imgGroup');
         Array.from(groups).forEach((element) => {
           element.style.display = 'none';
         });
         document.getElementById('emptyImg').style.display = 'none';
-        let selectedImg = document.getElementById(item.value);
+        let selectedImg = document.getElementById(document.getElementById(id).value);
         if (selectedImg) selectedImg.style.display = 'block';
         else document.getElementById('emptyImg').style.display = 'block';
       };
