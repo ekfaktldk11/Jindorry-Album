@@ -7,19 +7,33 @@ h1 {
   display: none;
 }
 
-#calendarBlock {
+#refer {
   margin: 0 auto;
-}
-
-#calendarBlock label{
   text-align: center;
-  display: block;
 }
 
-#calendarBlock input{
-  margin: 0 auto;
-  display: block;
+#calendarBlock {
+  text-align: center;
 }
+
+#calendar {
+  display: inline-block;
+}
+
+#calendarBlock button{
+  display: none;
+}
+
+/* #calendarBlock{
+  background-color: khaki;
+  text-align: center;
+}
+
+#calendarBlock button{
+  display: block;
+  float: right;
+  margin-right: 5vw;
+} */
 
 .imgGroup {
   margin: 0 auto;

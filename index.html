@@ -7,32 +7,66 @@
     <link rel="stylesheet" href="css/index.css" />
     <title>Jin Album</title>
     <script>
-      const imgSelector = id => {
+      const uploadEnable = () => {
+        document.getElementById('uploadButton').style.display = "inline-block";
+      };
+
+      const uploadDisable = () => {
+        document.getElementById('uploadButton').style.display = "none";
+      };
+
+      const uploadImg = () => {
+        // 년도 폴더 check
+        let ym = document.getElementById('calendar').value.split('-');
+        let yr = ym[0];
+        let mth = ym[1];       
+        let path = "/image/";
+        console.log(path+yr);
+        if (fs.existsSync(path+yr)) {
+          console.log("folder exist");
+        }
+        else {
+          console.log("folder doesn't exist");
+        }
+      }
+
+      const imgSelector = (id) => {
+        uploadEnable();
         let groups = document.getElementsByClassName('imgGroup');
         Array.from(groups).forEach((element) => {
           element.style.display = 'none';
         });
         document.getElementById('emptyImg').style.display = 'none';
-        let selectedImg = document.getElementById(document.getElementById(id).value);
+        let ym = document.getElementById(id).value;
+        let selectedImg = document.getElementById(ym);
         if (selectedImg) selectedImg.style.display = 'block';
-        else document.getElementById('emptyImg').style.display = 'block';
+        else {
+          if(ym) document.getElementById('emptyImg').style.display = 'block';
+          else {
+            uploadDisable();
+            document.getElementById('emptyImg').style.display = 'none';
+          }
+        }
       };
     </script>
   </head>
   <body>
     <h1>진도리의 앨범</h1>
     <br />
+    <p id="refer">년/월 선택</p>
+    <br />
     <div id="calendarBlock">
-      <label>년월 선택</label><br />
       <input
         type="month"
         id="calendar"
         name="calendar"
         onchange="imgSelector(this.id)"
-      /><br />
+      />
+      <button id="uploadButton" onclick="uploadImg()">불러오기</button>
     </div>
+    <br />
     <label id="emptyImg">이미지가 존재하지 않습니다.</label>
-    <div class="imgGroup" id="2021-12">
+    <!-- <div class="imgGroup" id="2021-12">
       <img
         src="image/2021/12/KakaoTalk_20220111_144937222.jpg"
         alt="2021_12_img_0"
@@ -119,6 +153,6 @@
         src="image/2020/11/KakaoTalk_20220111_145218633_06.jpg"
         alt="2020_11_img_6"
       />
-    </div>
+    </div> -->
   </body>
 </html>
