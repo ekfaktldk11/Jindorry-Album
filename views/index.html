@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/index.css" />
+    <title>Jin Album</title>
+    <script>
+      let baseUrl = 'http://localhost:3001/';
+      const loadBtnHandler = (id) => {
+        let ym = document.getElementById(id).value;
+        if (ym) {
+          document.getElementById('loadBtn').disabled = false;
+          console.log('should be enable');
+        } else {
+          document.getElementById('loadBtn').disabled = true;
+          console.log('should be disable');
+        }
+      };
+
+      const fetchFiles = async (id) => {
+        let ym = document.getElementById(id).value.split('-');
+        const response = await fetch(baseUrl + "loadImg", {
+          method: 'GET',
+          headers: {
+            "yy" : ym[0],
+            "mm" : ym[1]
+          }
+        });
+        if (!response.ok) {
+          alert("response Error");
+          return
+        }
+        return response.json();
+      }
+
+      const loadFiles = () => {
+        fetchFiles('calendar').then((result) => {
+          console.log(result);
+          console.log(typeof(result));
+          Array.from(result).forEach(element => {
+            console.log(element);
+            console.log(typeof(element));
+          });
+        }).catch((err) => {
+          console.log(err);
+          document.write("<p>Error</p>");
+        })
+      }
+      // 불러오기 버튼
+      // const loadEnable = () => {
+      //   document.getElementById('uploadButton').setAttribute('disabled', false);
+      // };
+      // const loadDisable = () => {
+      //   document.getElementById('uploadButton').setAttribute('disabled', true);
+      // };
+
+      // const loadImg = () => {
+
+      // }
+
+      // const imgSelector = (id) => {
+      //   uploadEnable();
+      //   let groups = document.getElementsByClassName('imgGroup');
+      //   Array.from(groups).forEach((element) => {
+      //     element.style.display = 'none';
+      //   });
+      //   document.getElementById('emptyImg').style.display = 'none';
+      //   let ym = document.getElementById(id).value;
+      //   let selectedImg = document.getElementById(ym);
+      //   if (selectedImg) selectedImg.style.display = 'block';
+      //   else {
+      //     if(ym) document.getElementById('emptyImg').style.display = 'block';
+      //     else {
+      //       uploadDisable();
+      //       document.getElementById('emptyImg').style.display = 'none';
+      //     }
+      //   }
+      // };
+    </script>
+  </head>
+  <body onload="document.getElementById('loadBtn').disabled = true;">
+    <h1>진도리의 앨범</h1>
+    <br />
+    <p id="refer">년/월 선택</p>
+    <br />
+    <input
+      type="month"
+      id="calendar"
+      name="calendar"
+      onchange="loadBtnHandler(this.id)"
+    />
+    <input id="loadBtn" onclick="loadFiles()" type="submit" value="불러오기" />
+    <!-- <form id="calendarForm" action="http://localhost:3001/loadImg" method="get">
+      <input
+        type="month"
+        id="calendar"
+        name="calendar"
+        onchange="loadBtnHandler(this.id)"
+      />
+      <input id="loadBtn" type="submit" value="불러오기">
+    </form> -->
+    <br />
+    <label id="emptyImg">이미지가 존재하지 않습니다.</label>
+    <!-- <div class="imgGroup" id="2021-12">
+      <img
+        src="image/2021/12/KakaoTalk_20220111_144937222.jpg"
+        alt="2021_12_img_0"
+      />
+      <img
+        src="image/2021/12/KakaoTalk_20220111_144937222_01.jpg"
+        alt="2021_12_img_1"
+      />
+      <img
+        src="image/2021/12/KakaoTalk_20220111_144937222_02.jpg"
+        alt="2021_12_img_2"
+      />
+      <img
+        src="image/2021/12/KakaoTalk_20220111_144937222_03.jpg"
+        alt="2021_12_img_3"
+      />
+      <img
+        src="image/2021/12/KakaoTalk_20220111_144937222_04.jpg"
+        alt="2021_12_img_4"
+      />
+    </div>
+    <div class="imgGroup" id="2021-11">
+      <img
+        src="image/2021/11/KakaoTalk_20220111_144851281.jpg"
+        alt="2021_11_img_0"
+      />
+      <img
+        src="image/2021/11/KakaoTalk_20220111_144851281_01.jpg"
+        alt="2021_11_img_2"
+      />
+      <img
+        src="image/2021/11/KakaoTalk_20220111_144851281_02.jpg"
+        alt="2021_11_img_3"
+      />
+      <img
+        src="image/2021/11/KakaoTalk_20220111_144851281_03.jpg"
+        alt="2021_11_img_4"
+      />
+    </div>
+    <div class="imgGroup" id="2020-12">
+      <img
+        src="image/2020/12/KakaoTalk_20220111_145122621.jpg"
+        alt="2020_12_img_0"
+      />
+      <img
+        src="image/2020/12/KakaoTalk_20220111_145122621_01.jpg"
+        alt="2020_12_img_1"
+      />
+      <img
+        src="image/2020/12/KakaoTalk_20220111_145122621_02.jpg"
+        alt="2020_12_img_2"
+      />
+      <img
+        src="image/2020/12/KakaoTalk_20220111_145122621_03.jpg"
+        alt="2020_12_img_3"
+      />
+    </div>
+    <div class="imgGroup" id="2020-11">
+      <img
+        src="image/2020/11/KakaoTalk_20220111_145218633.jpg"
+        alt="2020_11_img_0"
+      />
+      <img
+        src="image/2020/11/KakaoTalk_20220111_145218633_01.jpg"
+        alt="2020_11_img_1"
+      />
+      <img
+        src="image/2020/11/KakaoTalk_20220111_145218633_02.jpg"
+        alt="2020_11_img_2"
+      />
+      <img
+        src="image/2020/11/KakaoTalk_20220111_145218633_03.jpg"
+        alt="2020_11_img_3"
+      />
+      <img
+        src="image/2020/11/KakaoTalk_20220111_145218633_04.jpg"
+        alt="2020_11_img_4"
+      />
+      <img
+        src="image/2020/11/KakaoTalk_20220111_145218633_05.jpg"
+        alt="2020_11_img_5"
+      />
+      <img
+        src="image/2020/11/KakaoTalk_20220111_145218633_06.jpg"
+        alt="2020_11_img_6"
+      />
+    </div> -->
+  </body>
+</html>
