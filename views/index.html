@@ -8,79 +8,111 @@
     <title>Jin Album</title>
     <script>
       let baseUrl = 'http://localhost:3001/';
-      const loadBtnHandler = (id) => {
-        let ym = document.getElementById(id).value;
-        if (ym) {
-          document.getElementById('loadBtn').disabled = false;
-          console.log('should be enable');
-        } else {
-          document.getElementById('loadBtn').disabled = true;
-          console.log('should be disable');
-        }
-      };
-
-      const fetchFiles = async (id) => {
-        let ym = document.getElementById(id).value.split('-');
-        const response = await fetch(baseUrl + "loadImg", {
+      // const getFileNames = async (yy, mm) => {
+      //   const response = await fetch(baseUrl + 'loadImg', {
+      //     method: 'GET',
+      //     headers: {
+      //       yy: yy,
+      //       mm: mm,
+      //     },
+      //   });
+      //   if (!response.ok) {
+      //     alert("Error : Function Name 'getFileNames'");
+      //     return;
+      //   }
+      //   return response.blob();
+      // };
+      let blobFileList = [];
+      const getFileLen = async (yy, mm) => {
+        const response = await fetch(baseUrl + 'getFileLen', {
           method: 'GET',
           headers: {
-            "yy" : ym[0],
-            "mm" : ym[1]
-          }
+            yy: yy,
+            mm: mm,
+          },
         });
         if (!response.ok) {
-          alert("response Error");
-          return
+          alert("Error : Function Name 'getFiles'");
+          return;
         }
         return response.json();
       }
 
-      const loadFiles = () => {
-        fetchFiles('calendar').then((result) => {
-          console.log(result);
-          console.log(typeof(result));
-          Array.from(result).forEach(element => {
-            console.log(element);
-            console.log(typeof(element));
-          });
-        }).catch((err) => {
-          console.log(err);
-          document.write("<p>Error</p>");
-        })
-      }
-      // 불러오기 버튼
-      // const loadEnable = () => {
-      //   document.getElementById('uploadButton').setAttribute('disabled', false);
-      // };
-      // const loadDisable = () => {
-      //   document.getElementById('uploadButton').setAttribute('disabled', true);
-      // };
+      const getFiles = async (idx) => {
+        const response = await fetch(baseUrl + 'getFiles', {
+          method: 'GET',
+          headers: {
+            idx: idx
+          },
+        });
+        if (!response.ok) {
+          alert("Error : Function Name 'getFiles'");
+          return;
+        }
+        return response.blob();
+      };
 
-      // const loadImg = () => {
-
-      // }
-
-      // const imgSelector = (id) => {
-      //   uploadEnable();
-      //   let groups = document.getElementsByClassName('imgGroup');
-      //   Array.from(groups).forEach((element) => {
-      //     element.style.display = 'none';
-      //   });
-      //   document.getElementById('emptyImg').style.display = 'none';
-      //   let ym = document.getElementById(id).value;
-      //   let selectedImg = document.getElementById(ym);
-      //   if (selectedImg) selectedImg.style.display = 'block';
-      //   else {
-      //     if(ym) document.getElementById('emptyImg').style.display = 'block';
-      //     else {
-      //       uploadDisable();
-      //       document.getElementById('emptyImg').style.display = 'none';
-      //     }
-      //   }
-      // };
+      const loadBtnHandler = (id) => {
+        let ym = document.getElementById(id).value;
+        if (!ym) {
+          // 달력이 나타내는 년/월 값이 공백일때 처리
+          return;
+          // document.getElementById('loadBtn').disabled = false;
+        }
+        ym = ym.split('-');
+        let div = document.createElement('div');
+        // div.id = "loadedImgs"
+        getFileLen(ym[0], ym[1]).then((fileLen) => {
+          console.log(fileLen);
+          if (fileLen > 0){
+            div.style = 'margin: 0 auto;height: 130px;width: 90vw;white-space: nowrap;overflow-x: scroll;display: none;';
+            for (let i = 0; i < fileLen; i++){
+              // blobFileList.push(getFiles(i))
+              getFiles(i).then((result) => {
+                console.log(result);
+                blobFileList.push(result);
+              })
+            };
+            for(let i = 0; i < fileLen; i++){
+              let img = document.createElement('img');
+              img.style = 'height: 100px;width: 200px;object-fit: scale-down;display: inline-block;';
+              img.src = URL.createObjectURL(blobFileList[i]);
+              div.appendChild(img);
+            };
+          }
+          else {
+            div.innerHTML = '이미지가 존재하지 않습니다.';
+          }
+        });
+        
+        // fetchFiles(baseUrl + ym).then((result) => {
+        //   console.log(result);
+        //   // (0). 달력의 년/월 정보가 변경되었으니 전의 년/월 값에 해당되는 요소들을 삭제
+        //   document.body.remove(document.getElementsByClassName('errMsg'));
+        //   document.body.remove(document.getElementById('imgContainer'));
+        //   // (1). 파일이 존재하는 경우
+        //   // let imgContainer = document.createElement('div');
+        //   // imgContainer.id = "imgContainer";
+        //   // (2). 해당루트(폴더루트)가 존재 x
+        //   // (3). 루트는 존재하지만 파일 존재 x
+        // }).catch((err) => {
+        //   // 위 resolve문을 실행하다 생긴 에러를 출력
+        //   // fetch는 http error(400, 500번대) 상태를 reject 하지 않음
+        //   console.log(err);
+        //   // let errMsg = document.createElement('p');
+        //   // errMsg.value = "파일정보를 받아오는데 실패했습니다";
+        //   // errMsg.className="errMsg";
+        //   // errMsg.style = 'align:center';
+        //   // document.body.append(errMsg);
+        // });
+        // // else {
+        // //   document.getElementById('loadBtn').disabled = true;
+        // // }
+      };
     </script>
   </head>
-  <body onload="document.getElementById('loadBtn').disabled = true;">
+  <!-- onload="document.getElementById('loadBtn').disabled = true;" -->
+  <body>
     <h1>진도리의 앨범</h1>
     <br />
     <p id="refer">년/월 선택</p>
@@ -91,105 +123,8 @@
       name="calendar"
       onchange="loadBtnHandler(this.id)"
     />
-    <input id="loadBtn" onclick="loadFiles()" type="submit" value="불러오기" />
-    <!-- <form id="calendarForm" action="http://localhost:3001/loadImg" method="get">
-      <input
-        type="month"
-        id="calendar"
-        name="calendar"
-        onchange="loadBtnHandler(this.id)"
-      />
-      <input id="loadBtn" type="submit" value="불러오기">
-    </form> -->
+    <!-- <input id="loadBtn" onclick="loadFiles()" type="submit" value="불러오기" /> -->
     <br />
     <label id="emptyImg">이미지가 존재하지 않습니다.</label>
-    <!-- <div class="imgGroup" id="2021-12">
-      <img
-        src="image/2021/12/KakaoTalk_20220111_144937222.jpg"
-        alt="2021_12_img_0"
-      />
-      <img
-        src="image/2021/12/KakaoTalk_20220111_144937222_01.jpg"
-        alt="2021_12_img_1"
-      />
-      <img
-        src="image/2021/12/KakaoTalk_20220111_144937222_02.jpg"
-        alt="2021_12_img_2"
-      />
-      <img
-        src="image/2021/12/KakaoTalk_20220111_144937222_03.jpg"
-        alt="2021_12_img_3"
-      />
-      <img
-        src="image/2021/12/KakaoTalk_20220111_144937222_04.jpg"
-        alt="2021_12_img_4"
-      />
-    </div>
-    <div class="imgGroup" id="2021-11">
-      <img
-        src="image/2021/11/KakaoTalk_20220111_144851281.jpg"
-        alt="2021_11_img_0"
-      />
-      <img
-        src="image/2021/11/KakaoTalk_20220111_144851281_01.jpg"
-        alt="2021_11_img_2"
-      />
-      <img
-        src="image/2021/11/KakaoTalk_20220111_144851281_02.jpg"
-        alt="2021_11_img_3"
-      />
-      <img
-        src="image/2021/11/KakaoTalk_20220111_144851281_03.jpg"
-        alt="2021_11_img_4"
-      />
-    </div>
-    <div class="imgGroup" id="2020-12">
-      <img
-        src="image/2020/12/KakaoTalk_20220111_145122621.jpg"
-        alt="2020_12_img_0"
-      />
-      <img
-        src="image/2020/12/KakaoTalk_20220111_145122621_01.jpg"
-        alt="2020_12_img_1"
-      />
-      <img
-        src="image/2020/12/KakaoTalk_20220111_145122621_02.jpg"
-        alt="2020_12_img_2"
-      />
-      <img
-        src="image/2020/12/KakaoTalk_20220111_145122621_03.jpg"
-        alt="2020_12_img_3"
-      />
-    </div>
-    <div class="imgGroup" id="2020-11">
-      <img
-        src="image/2020/11/KakaoTalk_20220111_145218633.jpg"
-        alt="2020_11_img_0"
-      />
-      <img
-        src="image/2020/11/KakaoTalk_20220111_145218633_01.jpg"
-        alt="2020_11_img_1"
-      />
-      <img
-        src="image/2020/11/KakaoTalk_20220111_145218633_02.jpg"
-        alt="2020_11_img_2"
-      />
-      <img
-        src="image/2020/11/KakaoTalk_20220111_145218633_03.jpg"
-        alt="2020_11_img_3"
-      />
-      <img
-        src="image/2020/11/KakaoTalk_20220111_145218633_04.jpg"
-        alt="2020_11_img_4"
-      />
-      <img
-        src="image/2020/11/KakaoTalk_20220111_145218633_05.jpg"
-        alt="2020_11_img_5"
-      />
-      <img
-        src="image/2020/11/KakaoTalk_20220111_145218633_06.jpg"
-        alt="2020_11_img_6"
-      />
-    </div> -->
   </body>
 </html>
