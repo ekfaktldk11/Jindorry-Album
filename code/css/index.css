@@ -1,0 +1,18 @@
+h1 {
+  text-align: center;
+}
+
+#emptyImg {
+  text-align: center;
+}
+
+#refer {
+  margin: 0 auto;
+  text-align: center;
+}
+
+#calendar {
+  margin : 5px;
+  margin: 0 auto;
+  display: block;
+}

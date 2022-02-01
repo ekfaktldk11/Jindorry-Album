@@ -2,15 +2,14 @@ let express = require('express'); // express 프레임워크 import
 let app = express(); // express를 통해 서버 환경 구축
 let port = 3001; // 3001 포트 사용
 let path = require('path');
-// let URL = require('url');
 
 // view engine 을 html로 사용
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '/code/html'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
-// css, js 파일 사용을 위해 기본 path를 /public 으로 설정
-app.use(express.static(path.join(__dirname, 'public')));
+// css, js 파일 사용을 위해 기본 path를 /code 로 설정
+app.use(express.static(path.join(__dirname, 'code')));
 
 let fs = require('fs');
 let imagePath = path.join(__dirname, 'public/image/');
@@ -44,15 +43,8 @@ app.get('/getFileLen', function (req, res) {
       console.log(err);
       res.status(500).send('server error');
     }
-    // let fileList = [];
-    // files.forEach((file) => {
-    //   // fileList.push("/public/image/"+ req.headers.yy + '/' + req.headers.mm + '/' + file);
-    //   console.log(path.join(monthPath, file));
-    //   res.sendFile(path.join(monthPath, file));
-    // });
     fileList = files.map((item) => path.join(monthPath, item));
     res.json(fileList.length);
-    //res.json(fileList);
   });
 });
 
