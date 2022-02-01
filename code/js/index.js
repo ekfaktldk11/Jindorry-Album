@@ -62,6 +62,7 @@ const loadBtnHandler = async (id) => {
           img.style =
             'height: 100px;width: 200px;object-fit: scale-down;display: inline-block;';
           img.src = URL.createObjectURL(result);
+          img.alt = `loaded Image num ${i + 1}`;
           div.appendChild(img);
         });
       }
