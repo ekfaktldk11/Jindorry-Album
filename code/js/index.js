@@ -12,11 +12,11 @@ const getFileLen = async (yy, mm) => {
     alert("Error : Function Name 'getFileLen'");
     return;
   }
-  return response.json();
+  return await response.json();
 };
 
 const getFiles = async (idx) => {
-  const response = await fetch(baseUrl + 'files', {
+  const response = await fetch(baseUrl + 'file', {
     method: 'GET',
     headers: {
       idx: idx,
@@ -26,7 +26,7 @@ const getFiles = async (idx) => {
     alert("Error : Function Name 'getFiles'");
     return;
   }
-  return response.blob();
+  return await response.blob();
 };
 
 const loadedImgExist = () => {
@@ -62,7 +62,7 @@ const loadBtnHandler = async (id) => {
           img.style =
             'height: 100px;width: 200px;object-fit: scale-down;display: inline-block;';
           img.src = URL.createObjectURL(result);
-          img.alt = `loaded Image num ${i + 1}`;
+          img.alt = `loaded image num ${i + 1}`;
           div.appendChild(img);
         });
       }

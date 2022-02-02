@@ -48,7 +48,7 @@ app.get('/num-of-files', function (req, res) {
   });
 });
 
-app.get('/files', function (req, res) {
+app.get('/file', function (req, res) {
   res.sendFile(fileList[req.headers.idx])
 });
 
