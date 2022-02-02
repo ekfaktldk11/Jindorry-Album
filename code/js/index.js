@@ -1,7 +1,7 @@
 let baseUrl = 'http://localhost:3001/';
 
 const getFileLen = async (yy, mm) => {
-  const response = await fetch(baseUrl + 'getFileLen', {
+  const response = await fetch(baseUrl + 'num-of-files', {
     method: 'GET',
     headers: {
       yy: yy,
@@ -9,14 +9,14 @@ const getFileLen = async (yy, mm) => {
     },
   });
   if (!response.ok) {
-    alert("Error : Function Name 'getFiles'");
+    alert("Error : Function Name 'getFileLen'");
     return;
   }
   return response.json();
 };
 
 const getFiles = async (idx) => {
-  const response = await fetch(baseUrl + 'getFiles', {
+  const response = await fetch(baseUrl + 'files', {
     method: 'GET',
     headers: {
       idx: idx,

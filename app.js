@@ -36,7 +36,7 @@ app.get('/', function (req, res) {
 let monthPath = '';
 let fileList = [];
 
-app.get('/getFileLen', function (req, res) {
+app.get('/num-of-files', function (req, res) {
   monthPath = checkFolder(req.headers.yy, req.headers.mm);
   fs.readdir(monthPath, (err, files) => {
     if (err) {
@@ -48,7 +48,7 @@ app.get('/getFileLen', function (req, res) {
   });
 });
 
-app.get('/getFiles', function (req, res) {
+app.get('/files', function (req, res) {
   res.sendFile(fileList[req.headers.idx])
 });
 
