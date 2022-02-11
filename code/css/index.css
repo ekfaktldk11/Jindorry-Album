@@ -6,9 +6,15 @@ h1 {
   text-align: center;
 }
 
-#refer {
-  margin: 0 auto;
+#optBtnContainer {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#optBtnContainer :nth-child(n){
   text-align: center;
+  margin-left: 1vw;
 }
 
 #calendar {

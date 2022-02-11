@@ -10,7 +10,10 @@
   <body>
     <h1>진도리의 앨범</h1>
     <br />
-    <p id="refer">년/월 선택</p>
+    <div id="optBtnContainer">
+      <input id="" type='file' onclick="uploadFile(this.id)" />
+      <button id="fileEdit" onclick="editModeEnable()">편집</button>
+    </div>
     <br />
     <input
       type="month"
@@ -19,7 +22,7 @@
       onchange="loadBtnHandler(this.id)"
     />
     <br />
-    
-    <script src='../js/index.js'></script>
+
+    <script src="../js/index.js"></script>
   </body>
 </html>
