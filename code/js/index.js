@@ -34,7 +34,7 @@ const getFiles = async (idx) => {
 // 불러온 이미지 파일의 개수가 0일때
 const loadedImgExist = () => {
   for (let node of document.body.childNodes) {
-    if (node.id === 'loadedImg') {
+    if (node.id === 'loaded-img') {
       return true;
     }
   }
@@ -44,22 +44,22 @@ const loadedImgExist = () => {
 // 달력 onchange event
 const loadBtnHandler = async (id) => {
   if (loadedImgExist()) {
-    document.getElementById('loadedImg').remove();
-    //document.body.removeChild(document.getElementById('loadedImg'));
-    document.getElementById('fileEdit').style.display = 'none';
+    document.getElementById('loaded-img').remove();
+    //document.body.removeChild(document.getElementById('loaded-img'));
+    document.getElementById('file-edit').style.display = 'none';
   }
 
   let ym = document.getElementById(id).value;
 
   if (!ym) {
     // 달력 삭제 버튼 눌렀을 경우
-    document.getElementById('optBtnContainer').style.display = 'none';
+    document.getElementById('opt-btn-container').style.display = 'none';
     return;
   }
   ym = ym.split('-');
-  document.getElementById('optBtnContainer').style.display = 'flex';
+  document.getElementById('opt-btn-container').style.display = 'flex';
   let div = document.createElement('div');
-  div.id = 'loadedImg';
+  div.id = 'loaded-img';
 
   getFileLen(ym[0], ym[1])
     .then((fileLen) => {

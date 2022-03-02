@@ -2,17 +2,17 @@ h1 {
   text-align: center;
 }
 
-#emptyImg {
+#empty-img {
   text-align: center;
 }
 
-#optBtnContainer {
+#opt-btn-container {
   display: none;
   justify-content: center;
   align-items: center;
 }
 
-#optBtnContainer :nth-child(n){
+#opt-btn-container :nth-child(n){
   text-align: center;
   margin-left: 1vw;
 }
