@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/index.css" />
     <title>Jin Album</title>
+    <script src="https://kit.fontawesome.com/0ae3769c76.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <h1>진도리의 앨범</h1>
@@ -22,15 +23,14 @@
       onchange="loadBtnHandler(this.id)"
     />
     <br />
-    <div id="toggle-img">
-      <div id="toggle"></div>
-      <div></div>
-      <div>
-        <i></i>
-        <i></i>
+    <div id="img-card">
+      <div id="init-space">space</div>
+      <div id="moving-img">Img</div>
+      <div id="hidden-space">
+        <div><i class="fa-solid fa-trash fa-2xl"></i></div>
+        <div><i class="fa-solid fa-up-right-and-down-left-from-center fa-2xl"></i></div>
       </div>
     </div>
-
     <script src="../js/index.js"></script>
   </body>
 </html>

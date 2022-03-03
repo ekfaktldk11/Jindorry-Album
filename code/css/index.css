@@ -22,3 +22,43 @@ h1 {
   margin: 0 auto;
   display: block;
 }
+/* --------------------------- */
+#img-card {
+  display : flex;
+  justify-content: flex-end;
+  margin: 10px;
+  width: 300px;
+  height: 200px;
+  background-color: aqua;
+}
+
+#init-space {
+  flex: 1;
+}
+
+#moving-img {
+  flex: 4;
+  background-color: blueviolet;
+}
+
+#moving-img:hover{
+  background-color: bisque;
+}
+
+#hidden-space{
+  flex: 1;
+  display: flex;
+  align-self: flex-end;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  background-color: chartreuse;
+}
+
+#hidden-space div{
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
