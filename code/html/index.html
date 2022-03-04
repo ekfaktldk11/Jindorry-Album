@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/index.css" />
     <title>Jin Album</title>
-    <script src="https://kit.fontawesome.com/0ae3769c76.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/0ae3769c76.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <h1>진도리의 앨범</h1>
@@ -23,14 +26,22 @@
       onchange="loadBtnHandler(this.id)"
     />
     <br />
-    <div id="img-card">
-      <div id="init-space">space</div>
-      <div id="moving-img">Img</div>
-      <div id="hidden-space">
-        <div><i class="fa-solid fa-trash fa-2xl"></i></div>
-        <div><i class="fa-solid fa-up-right-and-down-left-from-center fa-2xl"></i></div>
+    <!-- <div id="img-card">
+      <div id="init-space"></div>
+      <div id="moving-img">
+        <img
+          src="data:image/jpeg;base64,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"
+        />
+        <div id="hidden-space">
+          <div><i class="fa-solid fa-trash fa-2xl"></i></div>
+          <div>
+            <i
+              class="fa-solid fa-up-right-and-down-left-from-center fa-2xl"
+            ></i>
+          </div>
+        </div>
       </div>
-    </div>
+    </div> -->
     <script src="../js/index.js"></script>
   </body>
 </html>
