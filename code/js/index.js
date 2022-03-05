@@ -1,21 +1,8 @@
 let baseUrl = 'http://localhost:3001/';
 
-const imgCardStyling = () => {
-  document.getElementsByClassName('img-card').style = 'display : flex;position: relative;margin: 10px;width: 250px;height: 200px;z-index: 1;';
-  document.getElementsByClassName('space').style = 'width: 50px;';
-  document.getElementsByClassName('loaded-imgs').style = 'position: absolute;left: 50px;width: 200px;height: 200px;z-index: 2;object-fit: scale-down;';
-  document.getElementsByClassName('hidden-space').style = 'position: absolute;left: 200px;width: 50px;display: flex;flex-direction: column;height: 100%;';
-  document.getElementsByClassName('moving-block').addEventListener("mouseover", () => {
-    console.log(this);
-  })
-  document.getElementsByClassName('hidden-div').style = 'display: flex;flex: 1;justify-content: center;align-items: center;margin-left: 5px;';
-  // document.getElementsByClassName
-};
-
 const imgCard = (item, idx) => {
   let trashIcon = 'fa-solid fa-trash fa-2xl';
   let extenseIcon = 'fa-solid fa-up-right-and-down-left-from-center fa-2xl';
-  card.addEventListener
   let card = document.createElement('div');
   let space = document.createElement('div');
   let movingBlock = document.createElement('div');
@@ -46,6 +33,32 @@ const imgCard = (item, idx) => {
   movingBlock.className = 'moving-block';
   hiddenSpace.className = 'hidden-space';
 
+  card.style = 'display : flex;position: relative;margin: 10px;width: 250px;height: 200px;z-index: 1;';
+  space.style = 'width: 50px;';
+  movingBlock.style = 'width: 220px; margin-right: 20vw;';
+  img.style = 'position: absolute;left: 50px;width: 200px;height: 200px;z-index: 2;object-fit: fill;border: 1px solid #000;';
+  hiddenSpace.style = 'position: absolute;left: 200px;width: 50px;display: flex;flex-direction: column;height: 100%;';
+  hiddenDiv1.style = 'display: flex;flex: 1;justify-content: center;align-items: center;margin-left: 5px;';
+  hiddenDiv2.style = 'display: flex;flex: 1;justify-content: center;align-items: center;margin-left: 5px;';
+  movingBlock.addEventListener('mouseover', function(){
+    this.firstChild.style = 'position: absolute;left: 0px;width: 200px;height: 200px;z-index: 2;object-fit: fill;border: 1px solid #000;';
+  });
+  movingBlock.addEventListener('mouseout', function(){
+    this.firstChild.style = 'position: absolute;left: 50px;width: 200px;height: 200px;z-index: 2;object-fit: fill;border: 1px solid #000;';
+  });
+  hiddenIcon1.addEventListener('mouseover', function(){
+    this.style = 'color: red;'
+  });
+  hiddenIcon1.addEventListener('mouseout', function(){
+    this.style = 'color: black;'
+  });
+  hiddenIcon2.addEventListener('mouseover', function(){
+    this.style = 'color: red;'
+  });
+  hiddenIcon2.addEventListener('mouseout', function(){
+    this.style = 'color: black;'
+  });
+  // 여기는 this를 통해 태그 속성을 이용하기위해 arrow 가 아닌 일반함수로 선언
   return card;
 };
 
@@ -114,16 +127,10 @@ const loadBtnHandler = async (id) => {
     .then((fileLen) => {
       if (fileLen > 0) {
         div.style =
-          'margin: 0 auto;height: 130px;width: 90vw;white-space: nowrap;overflow-x: scroll;display: block;';
+          'display: flex;height: 250px;width: 90%;overflow-x: scroll;flex-wrap: nowrap;justify-content: space-between;align-content:center;';
         for (let i = 0; i < fileLen; i++) {
           getFiles(i).then((result) => {
             div.appendChild(imgCard(result, i));
-            // let img = document.createElement('img');
-            // img.style =
-            //   'height: 100px;width: 200px;object-fit: scale-down;display: inline-block;';
-            // img.src = URL.createObjectURL(result);
-            // img.alt = `loaded image num ${i + 1}`;
-            // div.appendChild(img);
           });
         }
       } else {
@@ -133,7 +140,6 @@ const loadBtnHandler = async (id) => {
       }
     })
     .then(() => {
-      imgCardStyling();
       document.body.append(div);
     });
 };
