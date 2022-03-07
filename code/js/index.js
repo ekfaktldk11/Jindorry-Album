@@ -1,6 +1,6 @@
 let baseUrl = 'http://localhost:3001/';
 
-const imgCard = (item, idx) => {
+const imgCard = (fileList, item, idx) => {
   let trashIcon = 'fa-solid fa-trash fa-2xl';
   let extenseIcon = 'fa-solid fa-up-right-and-down-left-from-center fa-2xl';
   let card = document.createElement('div');
@@ -24,42 +24,68 @@ const imgCard = (item, idx) => {
 
   movingBlock.append(img, hiddenSpace);
   card.append(space, movingBlock);
-  
+
   hiddenDiv1.className = 'hidden-div';
   hiddenDiv2.className = 'hidden-div';
-  img.className = 'loaded-imgs'
+  img.className = 'loaded-imgs';
   card.className = 'img-card';
   space.className = 'space';
   movingBlock.className = 'moving-block';
   hiddenSpace.className = 'hidden-space';
 
-  card.style = 'display : flex;position: relative;margin: 10px;width: 250px;height: 200px;z-index: 1;';
+  card.style =
+    'display : flex;position: relative;margin: 10px;width: 250px;height: 200px;z-index: 1;';
   space.style = 'width: 50px;';
   movingBlock.style = 'width: 220px; margin-right: 20vw;';
-  img.style = 'position: absolute;left: 50px;width: 200px;height: 200px;z-index: 2;object-fit: fill;border: 1px solid #000;';
-  hiddenSpace.style = 'position: absolute;left: 200px;width: 50px;display: flex;flex-direction: column;height: 100%;';
-  hiddenDiv1.style = 'display: flex;flex: 1;justify-content: center;align-items: center;margin-left: 5px;';
-  hiddenDiv2.style = 'display: flex;flex: 1;justify-content: center;align-items: center;margin-left: 5px;';
-  movingBlock.addEventListener('mouseover', function(){
-    this.firstChild.style = 'position: absolute;left: 0px;width: 200px;height: 200px;z-index: 2;object-fit: fill;border: 1px solid #000;';
+  img.style =
+    'position: absolute;left: 50px;width: 200px;height: 200px;z-index: 2;object-fit: fill;border: 1px solid #000;';
+  hiddenSpace.style =
+    'position: absolute;left: 200px;width: 50px;display: flex;flex-direction: column;height: 100%;';
+  hiddenDiv1.style =
+    'display: flex;flex: 1;justify-content: center;align-items: center;margin-left: 5px;';
+  hiddenDiv2.style =
+    'display: flex;flex: 1;justify-content: center;align-items: center;margin-left: 5px;';
+  movingBlock.addEventListener('mouseover', function () {
+    this.firstChild.style =
+      'position: absolute;left: 0px;width: 200px;height: 200px;z-index: 2;object-fit: fill;border: 1px solid #000;';
   });
-  movingBlock.addEventListener('mouseout', function(){
-    this.firstChild.style = 'position: absolute;left: 50px;width: 200px;height: 200px;z-index: 2;object-fit: fill;border: 1px solid #000;';
+  movingBlock.addEventListener('mouseout', function () {
+    this.firstChild.style =
+      'position: absolute;left: 50px;width: 200px;height: 200px;z-index: 2;object-fit: fill;border: 1px solid #000;';
   });
-  hiddenIcon1.addEventListener('mouseover', function(){
-    this.style = 'color: red;'
+  hiddenIcon1.addEventListener('mouseover', function () {
+    this.style = 'color: red;';
   });
-  hiddenIcon1.addEventListener('mouseout', function(){
-    this.style = 'color: black;'
+  hiddenIcon1.addEventListener('mouseout', function () {
+    this.style = 'color: black;';
   });
-  hiddenIcon2.addEventListener('mouseover', function(){
-    this.style = 'color: red;'
+  hiddenDiv1.addEventListener('click', function () {
+    removeFile(fileList[idx]).then((result) => {
+      console.log(result);
+    });
   });
-  hiddenIcon2.addEventListener('mouseout', function(){
-    this.style = 'color: black;'
+  hiddenIcon2.addEventListener('mouseover', function () {
+    this.style = 'color: red;';
+  });
+  hiddenIcon2.addEventListener('mouseout', function () {
+    this.style = 'color: black;';
   });
   // 여기는 this를 통해 태그 속성을 이용하기위해 arrow 가 아닌 일반함수로 선언
   return card;
+};
+
+// 이미지 삭제
+const removeFile = async (filePath) => {
+  const response = await fetch(baseUrl + 'file', {
+    method: 'DELETE',
+    headers: {
+      path: filePath,
+    },
+  });
+  if (!response.ok) {
+    alert("Error : Function Name 'removeFile'");
+  }
+  return response;
 };
 
 // 이미지 개수 받아오기
@@ -75,7 +101,7 @@ const getFileLen = async (yy, mm) => {
     alert("Error : Function Name 'getFileLen'");
     return;
   }
-  return await response.json();
+  return response.json();
 };
 
 // 이미지(blob 파일) 받아오기
@@ -90,7 +116,8 @@ const getFiles = async (idx) => {
     alert("Error : Function Name 'getFiles'");
     return;
   }
-  return await response.blob();
+
+  return response.blob();
 };
 
 // 불러온 이미지 파일의 개수가 0일때
@@ -124,13 +151,13 @@ const loadBtnHandler = async (id) => {
   div.id = 'loaded-img';
 
   getFileLen(ym[0], ym[1])
-    .then((fileLen) => {
-      if (fileLen > 0) {
+    .then((fileList) => {
+      if (fileList.length > 0) {
         div.style =
           'display: flex;height: 250px;width: 90%;overflow-x: scroll;flex-wrap: nowrap;justify-content: space-between;align-content:center;';
-        for (let i = 0; i < fileLen; i++) {
+        for (let i = 0; i < fileList.length; i++) {
           getFiles(i).then((result) => {
-            div.appendChild(imgCard(result, i));
+            div.appendChild(imgCard(fileList, result, i));
           });
         }
       } else {
