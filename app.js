@@ -53,8 +53,15 @@ app.get('/file', function (req, res) {
 });
 
 app.delete('/file', function(req, res){
-  console.log(req.headers.path);
-  res.end();
+  fs.unlink(req.headers.path, (err) => {
+    if (err){
+      console.log(err);
+      res.status(500).send("Internal Server Error");
+    } else {
+      console.log('unlink worked');
+      res.end();
+    }
+  })
 });
 
 // express 서버 열기

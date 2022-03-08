@@ -13,6 +13,7 @@ const imgCard = (fileList, item, idx) => {
   let hiddenIcon1 = document.createElement('i');
   let hiddenIcon2 = document.createElement('i');
 
+  card.setAttribute("idx", idx);
   hiddenIcon1.className = trashIcon;
   hiddenIcon2.className = extenseIcon;
   hiddenDiv1.appendChild(hiddenIcon1);
@@ -59,10 +60,18 @@ const imgCard = (fileList, item, idx) => {
   hiddenIcon1.addEventListener('mouseout', function () {
     this.style = 'color: black;';
   });
-  hiddenDiv1.addEventListener('click', function () {
-    removeFile(fileList[idx]).then((result) => {
-      console.log(result);
-    });
+  hiddenDiv1.addEventListener('click', function(){
+    if(confirm("정말로 이 사진을 삭제하시겠습니까?\n")){
+      removeFile(fileList[idx]).then((result) => {
+        console.log(document.getElementsByClassName('img-card').length)
+        Array.from(document.getElementsByClassName('img-card')).forEach((item) => {
+          console.log(item.idx);
+          console.log(idx);
+        })
+        console.log(document.getElementsByClassName('img-card').length)
+        // location.reload();
+      });
+    }
   });
   hiddenIcon2.addEventListener('mouseover', function () {
     this.style = 'color: red;';
@@ -101,7 +110,7 @@ const getFileLen = async (yy, mm) => {
     alert("Error : Function Name 'getFileLen'");
     return;
   }
-  return response.json();
+  return await response.json();
 };
 
 // 이미지(blob 파일) 받아오기
@@ -117,7 +126,7 @@ const getFiles = async (idx) => {
     return;
   }
 
-  return response.blob();
+  return await response.blob();
 };
 
 // 불러온 이미지 파일의 개수가 0일때
