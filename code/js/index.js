@@ -18,11 +18,10 @@ const imgCard = (fileList, item, idx) => {
   hiddenIcon2.className = extenseIcon;
   hiddenDiv1.appendChild(hiddenIcon1);
   hiddenDiv2.appendChild(hiddenIcon2);
-  hiddenSpace.append(hiddenDiv1, hiddenDiv2); // 이거 되나?
+  hiddenSpace.append(hiddenDiv1, hiddenDiv2);
 
   img.src = URL.createObjectURL(item);
   img.alt = `loaded image num ${idx + 1}`;
-
   movingBlock.append(img, hiddenSpace);
   card.append(space, movingBlock);
 
@@ -63,13 +62,7 @@ const imgCard = (fileList, item, idx) => {
   hiddenDiv1.addEventListener('click', function(){
     if(confirm("정말로 이 사진을 삭제하시겠습니까?\n")){
       removeFile(fileList[idx]).then((result) => {
-        console.log(document.getElementsByClassName('img-card').length)
-        Array.from(document.getElementsByClassName('img-card')).forEach((item) => {
-          console.log(item.idx);
-          console.log(idx);
-        })
-        console.log(document.getElementsByClassName('img-card').length)
-        // location.reload();
+        console.log(result);
       });
     }
   });
@@ -98,8 +91,8 @@ const removeFile = async (filePath) => {
 };
 
 // 이미지 개수 받아오기
-const getFileLen = async (yy, mm) => {
-  const response = await fetch(baseUrl + 'num-of-files', {
+const getFileList = async (yy, mm) => {
+  const response = await fetch(baseUrl + 'filesList', {
     method: 'GET',
     headers: {
       yy: yy,
@@ -107,7 +100,7 @@ const getFileLen = async (yy, mm) => {
     },
   });
   if (!response.ok) {
-    alert("Error : Function Name 'getFileLen'");
+    alert("Error : Function Name 'getFileList'");
     return;
   }
   return await response.json();
@@ -143,23 +136,18 @@ const loadedImgExist = () => {
 const loadBtnHandler = async (id) => {
   if (loadedImgExist()) {
     document.getElementById('loaded-img').remove();
-    //document.body.removeChild(document.getElementById('loaded-img'));
-    document.getElementById('file-edit').style.display = 'none';
   }
 
   let ym = document.getElementById(id).value;
 
   if (!ym) {
-    // 달력 삭제 버튼 눌렀을 경우
-    document.getElementById('opt-btn-container').style.display = 'none';
     return;
   }
   ym = ym.split('-');
-  document.getElementById('opt-btn-container').style.display = 'flex';
   let div = document.createElement('div');
   div.id = 'loaded-img';
 
-  getFileLen(ym[0], ym[1])
+  getFileList(ym[0], ym[1])
     .then((fileList) => {
       if (fileList.length > 0) {
         div.style =
@@ -179,11 +167,3 @@ const loadBtnHandler = async (id) => {
       document.body.append(div);
     });
 };
-
-const uploadFile = (id) => {
-  console.log(document.getElementById(id).attributes);
-  let ym = document.getElementById('calendar').value;
-  ym = ym.split('-');
-};
-
-const editModeEnable = () => {};

@@ -36,7 +36,7 @@ app.get('/', function (req, res) {
 let monthPath = '';
 let fileList = [];
 
-app.get('/num-of-files', function (req, res) {
+app.get('/filesList', function (req, res) {
   monthPath = checkFolder(req.headers.yy, req.headers.mm);
   fs.readdir(monthPath, (err, files) => {
     if (err) {
