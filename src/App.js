@@ -6,6 +6,5 @@ export default function App({root}){
       new MainPage({target : root}).render();
     }
   }
-
   this.route();
 }

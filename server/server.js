@@ -11,7 +11,7 @@ app.engine('html', require('ejs').renderFile);
 
 app.use(express.static(path.join(__dirname, '..')));
 
-const imgPath = path.join(__dirname, 'public/image/');
+const imgPath = path.join(__dirname, '../public/image/');
 
 // 폴더 유무 체크하고 없으면 폴더 생성
 const checkImgFolder = (yy, mm) => {
@@ -23,7 +23,7 @@ const checkImgFolder = (yy, mm) => {
     fs.mkdirSync(yearPath);
     fs.mkdirSync(monthPath);
   }
-
+  return monthPath
 };
 
 app.get('/', function(req, res){
@@ -31,7 +31,7 @@ app.get('/', function(req, res){
 })
 
 app.get('/imgs', function(req, res){
-  checkImgFolder(req.headers.yy, req.headers.mm);
+  let monthPath = checkImgFolder(req.query.yy, req.query.mm);
   fs.readdir(monthPath, (err, files) => {
     if (err) {
       console.log(err);

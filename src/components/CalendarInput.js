@@ -1,18 +1,13 @@
-export default function CalendarInput({target, onCalendarUpdate}){
-  this.state = {
-    inputMode : false
-  }
-  const div = document.createElement('div');
+export default function CalendarInput({ target, onCalendarUpdate }) {
   const input = document.createElement('input');
   input.type = 'month';
   input.id = 'calendar';
-  div.appendChild(input);
-  input.addEventListener('change', function(){
-    console.log(this);
-    console.log(this.value);
-  })
+  input.addEventListener('change', function () {
+    let yymm = this.value.split('-');
+    onCalendarUpdate(yymm[0], yymm[1]);
+  });
 
   this.render = () => {
-    target.appendChild(div);
-  }
+    target.appendChild(input);
+  };
 }

@@ -1,3 +1,4 @@
+import CalendarInput from "./CalendarInput.js";
 import ImgContainer from "./ImgContainer.js";
 
 export default function MainPage({ target }) {
@@ -5,24 +6,29 @@ export default function MainPage({ target }) {
     yearMonth : undefined
   }
   const page = document.createElement('div');
+  page.className = "MainPage";
+  page.innerHTML = "<h1>진도리의 앨범</h1>";
 
-  const getYearMonth = () => {
-    return this.state.yearMonth;
-  }
-
-  const setYearMonth = (yy, mm) => {
+  this.setYearMonth = (yy, mm) => {
     this.state.yearMonth = {
       yy : yy,
       mm : mm
     }
-    ImgContainer({
+    new ImgContainer({
       target:page,
-      onCalendarUpdate: this.setYearMonth
-    })
+      yearMonth: this.state.yearMonth
+    }).render();
   }
 
-  page.innerHTML = "<h1>진도리의 앨범</h1>";
   this.render = () => {
     target.appendChild(page);
+    new CalendarInput({
+      target: page,
+      onCalendarUpdate: this.setYearMonth
+    }).render();
+
+    new ImgContainer({
+      target:page
+    }).render();
   }
 }
