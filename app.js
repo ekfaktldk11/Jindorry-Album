@@ -66,6 +66,7 @@ app.delete('/file', function(req, res){
 
 // express 서버 열기
 app.listen(port, () => {
+  console.log(app)
   // port, hostName, () 으로 인자를 하나 추가하여 직접 호스트명 선언 가능
   console.log(`express is running on ${port}`);
 });
