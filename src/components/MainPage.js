@@ -28,7 +28,8 @@ export default function MainPage({ target }) {
     }).render();
 
     new ImgContainer({
-      target:page
+      target:page,
+      yearMonth: this.state.yearMonth
     }).render();
   }
 }
