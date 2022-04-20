@@ -6,12 +6,12 @@ export default function MainPage({ target }) {
     yearMonth : undefined
   }
   const page = document.createElement('div');
-  page.className = "MainPage";
+  page.className = "main-page";
   page.innerHTML = "<h1>진도리의 앨범</h1>";
 
   const imgContainerInit = () => {
-    let imgContainer = document.querySelector(".ImgContainer");
-    imgContainer && page.removeChild(document.querySelector(".ImgContainer"));
+    let imgContainer = document.querySelector(".img-container");
+    imgContainer && page.removeChild(document.querySelector(".img-container"));
   }
 
   this.setYearMonth = (yy, mm) => {

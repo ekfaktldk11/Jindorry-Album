@@ -13,16 +13,18 @@ export default function ImgContainer({ target, yearMonth }) {
   };
 
   const div = document.createElement('div');
-  div.className = 'ImgContainer';
+  div.className = 'img-container';
 
   const imgSourceHandler = (fileName) =>
     imageDirURL + yearMonth.yy + '/' + yearMonth.mm + '/' + fileName;
 
   const renderImgCard = () => {
+    let i = 0;
     this.state.files.map((file) => {
       new ImgCard({
         target: div,
         imgSource: imgSourceHandler(file),
+        imgSeq : i++
       }).render();
     });
   };
