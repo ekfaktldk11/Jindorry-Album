@@ -1,6 +1,7 @@
 import { getImgs } from '../api.js';
 import { imageDirURL } from '../static.js';
 import ImgCard from './ImgCard.js';
+import ReportCard from './ReportCard.js';
 
 export default function ImgContainer({ target, yearMonth }) {
   this.state = {
@@ -11,12 +12,12 @@ export default function ImgContainer({ target, yearMonth }) {
     this.state.files = files;
   };
 
+  const div = document.createElement('div');
+  div.className = 'ImgContainer';
+
   const imgSourceHandler = (fileName) =>
     imageDirURL + yearMonth.yy + '/' + yearMonth.mm + '/' + fileName;
 
-  const div = document.createElement('div');
-  div.className = 'ImgContainer';
-  
   const renderImgCard = () => {
     this.state.files.map((file) => {
       new ImgCard({
@@ -24,14 +25,10 @@ export default function ImgContainer({ target, yearMonth }) {
         imgSource: imgSourceHandler(file),
       }).render();
     });
-  }
+  };
 
-  const renderNoImageText = () => {
-    const noImageText = document.createElement('p');
-    noImageText.innerHTML("이미지가 존재하지 않습니다!");
-    noImageText.className = "NoImageText";
-    div.appendChild(noImageText);
-  }
+  const renderNoImageMsg = () =>
+    new ReportCard({ target: div, message: '이미지가 존재하지 않습니다!' }).render();
 
   this.render = () => {
     target.appendChild(div);
@@ -42,7 +39,7 @@ export default function ImgContainer({ target, yearMonth }) {
             this.setFiles(files);
           })
           .then(() => {
-            this.state.files ? renderImgCard() : renderNoImageText();
+            this.state.files.length ? renderImgCard() : renderNoImageMsg();
           });
     }
   };

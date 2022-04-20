@@ -9,11 +9,17 @@ export default function MainPage({ target }) {
   page.className = "MainPage";
   page.innerHTML = "<h1>진도리의 앨범</h1>";
 
+  const imgContainerInit = () => {
+    let imgContainer = document.querySelector(".ImgContainer");
+    imgContainer && page.removeChild(document.querySelector(".ImgContainer"));
+  }
+
   this.setYearMonth = (yy, mm) => {
     this.state.yearMonth = {
       yy : yy,
       mm : mm
     }
+    imgContainerInit();
     new ImgContainer({
       target:page,
       yearMonth: this.state.yearMonth
