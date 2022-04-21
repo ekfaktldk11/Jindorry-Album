@@ -1,10 +1,10 @@
-import MainPage from "./components/MainPage.js"
+import MainPage from './pages/MainPage.js';
 
-export default function App({root}){
+export default function App({ root }) {
   this.route = () => {
-    if (location.pathname === "/"){
-      new MainPage({target : root}).render();
+    if (location.pathname == '/') {
+      new MainPage({ target: root }).render();
     }
-  }
+  };
   this.route();
 }

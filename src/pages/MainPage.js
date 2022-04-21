@@ -1,5 +1,5 @@
-import CalendarInput from "./CalendarInput.js";
-import ImgContainer from "./ImgContainer.js";
+import CalendarInput from "../components/CalendarInput.js";
+import ImgContainer from "../components/ImgContainer.js";
 
 export default function MainPage({ target }) {
   this.state = {
@@ -9,20 +9,21 @@ export default function MainPage({ target }) {
   page.className = "main-page";
   page.innerHTML = "<h1>진도리의 앨범</h1>";
 
-  const imgContainerInit = () => {
-    let imgContainer = document.querySelector(".img-container");
-    imgContainer && page.removeChild(document.querySelector(".img-container"));
-  }
-
   this.setYearMonth = (yy, mm) => {
     this.state.yearMonth = {
       yy : yy,
       mm : mm
     }
     imgContainerInit();
+  }
+
+  const imgContainerInit = () => {
+    let imgContainer = document.querySelector(".img-container");
+    imgContainer && page.removeChild(document.querySelector(".img-container"));
     new ImgContainer({
       target:page,
-      yearMonth: this.state.yearMonth
+      yearMonth: this.state.yearMonth,
+      imgContainerInit : imgContainerInit
     }).render();
   }
 
@@ -35,7 +36,8 @@ export default function MainPage({ target }) {
 
     new ImgContainer({
       target:page,
-      yearMonth: this.state.yearMonth
+      yearMonth: this.state.yearMonth,
+      imgContainerInit : imgContainerInit
     }).render();
   }
 }

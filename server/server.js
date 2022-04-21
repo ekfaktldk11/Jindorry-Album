@@ -30,7 +30,7 @@ app.get('/', function(req, res){
   res.render('index.html');
 })
 
-app.get('/imgs', function(req, res){
+app.get('/img', function(req, res){
   let monthPath = checkImgFolder(req.query.yy, req.query.mm);
   fs.readdir(monthPath, (err, files) => {
     if (err) {
@@ -40,6 +40,21 @@ app.get('/imgs', function(req, res){
     res.json(files);
   });
 })
+
+app.delete('/img', function(req, res){
+  let monthPath = checkImgFolder(req.headers.yy, req.headers.mm);
+  fs.unlink(monthPath.concat('/', req.headers.file), (err) => {
+    console.log(monthPath);
+    if (err){
+      console.log(err);
+      res.status(500).send("Internal Server Error");
+    } else {
+      console.log('unlink worked');
+      res.status(200).json();
+    }
+  })
+})
+
 // express 서버 열기
 app.listen(port, () => {
   console.log(`express is running on ${port}`);

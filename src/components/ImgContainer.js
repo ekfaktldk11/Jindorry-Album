@@ -1,9 +1,10 @@
-import { getImgs } from '../api.js';
+import { getImg } from '../api.js';
 import { imageDirURL } from '../static.js';
+import { onDeleteImg, onExtendImg } from '../events/imgEventHandler.js';
 import ImgCard from './ImgCard.js';
 import ReportCard from './ReportCard.js';
 
-export default function ImgContainer({ target, yearMonth }) {
+export default function ImgContainer({ target, yearMonth, imgContainerInit }) {
   this.state = {
     files: null,
   };
@@ -24,25 +25,31 @@ export default function ImgContainer({ target, yearMonth }) {
       new ImgCard({
         target: div,
         imgSource: imgSourceHandler(file),
-        imgSeq : i++
+        imgInfo: {
+          yearMonth: yearMonth,
+          fileName: file,
+        },
+        imgSeq: i++,
       }).render();
     });
   };
 
   const renderNoImageMsg = () =>
-    new ReportCard({ target: div, message: '이미지가 존재하지 않습니다!' }).render();
+    new ReportCard({
+      target: div,
+      message: '이미지가 존재하지 않습니다!',
+    }).render();
 
   this.render = () => {
     target.appendChild(div);
     {
       yearMonth &&
-        getImgs(yearMonth)
-          .then((files) => {
-            this.setFiles(files);
-          })
-          .then(() => {
-            this.state.files.length ? renderImgCard() : renderNoImageMsg();
-          });
+        getImg(yearMonth).then((files) => {
+          this.setFiles(files);
+          this.state.files.length ? renderImgCard() : renderNoImageMsg();
+          onDeleteImg(imgContainerInit);
+          onExtendImg();
+        });
     }
   };
 }
