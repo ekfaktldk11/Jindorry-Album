@@ -1,5 +1,5 @@
-import CalendarInput from "../components/CalendarInput.js";
-import ImgContainer from "../components/ImgContainer.js";
+import CalendarInput from "./CalendarInput.js";
+import ImgContainer from "./ImgContainer.js";
 
 export default function MainPage({ target }) {
   this.state = {

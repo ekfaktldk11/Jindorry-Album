@@ -17,9 +17,6 @@ export const onExtendImg = () => {
   const extendIcons = document.querySelectorAll('.fa-up-right-and-down-left-from-center');
   extendIcons.length && Array.from(extendIcons).map((icon) => {
     icon.addEventListener('click', function(){
-      let imgSource = this.dataset.src.split('/')
-      // console.log(imgSource);
-      // location.href = `/img/${imgSource[-1]}`
       location.href = this.dataset.src;
     })
   })

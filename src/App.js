@@ -1,4 +1,4 @@
-import MainPage from './pages/MainPage.js';
+import MainPage from './components/MainPage.js';
 
 export default function App({ root }) {
   this.route = () => {
