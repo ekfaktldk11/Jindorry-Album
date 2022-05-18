@@ -1,0 +1,73 @@
+h1 {
+  text-align: center;
+}
+
+.report-card {
+  text-align: center;
+}
+
+#calendar {
+  display: block;
+  margin: 0 auto;
+}
+
+.img-container{
+  display: flex;
+}
+
+.img-card {
+  display : flex;
+  position: relative;
+  margin: 10px;
+  width: 250px;
+  height: 200px;
+  z-index: 1;
+}
+
+.space {
+  width: 50px;
+}
+
+.moving-block {
+  width: 220px;
+  margin-right: 20vw;
+}
+
+.loaded-img {
+  position: absolute;
+  left: 50px;
+  width: 200px;
+  height: 200px;
+  z-index: 2;
+  object-fit: fill;
+  border: 1px solid #000;
+}
+
+.moving-block:hover :first-child{
+  left: 0px;
+}
+
+.hidden-space {
+  position: absolute;
+  left: 200px;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.hidden-div {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+}
+
+i{
+  color: black;
+}
+
+i:hover{
+  color: #9b9b9b;
+}
