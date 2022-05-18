@@ -3,7 +3,7 @@ import ImgContainer from "./ImgContainer.js";
 
 export default function MainPage({ target }) {
   this.state = {
-    yearMonth : undefined
+    yearMonth : null
   }
   const page = document.createElement('div');
   page.className = "main-page";

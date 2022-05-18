@@ -5,6 +5,9 @@ import ImgCard from './ImgCard.js';
 import ReportCard from './ReportCard.js';
 
 export default function ImgContainer({ target, yearMonth, imgContainerInit }) {
+  // 이미지 컨테이너는 서버에서 받아온 이미지를 담는 그릇
+  // 따라서 이미지의 개수가 달라지면 이미지컨테이너는 업데이트 됨과 동시에
+  // 이미지를 새로 받아오고 받아온 이미지 만큼 이미지를 담아야함
   this.state = {
     files: null,
   };

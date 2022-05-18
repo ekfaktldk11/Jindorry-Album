@@ -50,7 +50,7 @@ app.delete('/img', function(req, res){
       res.status(500).send("Internal Server Error");
     } else {
       console.log('unlink worked');
-      res.status(200).json();
+      res.status(204).json();
     }
   })
 })
