@@ -16,8 +16,11 @@ export default function ImgListPage({ target, yearMonth }) {
    */
   this.state = null;
 
-  this.setState = (files) => {
-    this.state = files;
+  this.setState = () => {
+    getImg(yearMonth).then((files) => {
+      this.state = files;
+      this.state.length ? renderImgCard() : renderNoImageMsg();
+    });
     this.render();
   };
 
@@ -53,7 +56,7 @@ export default function ImgListPage({ target, yearMonth }) {
     target.appendChild(div);
     div.innerHTML = '';
     {
-      yearMonth &&
+      yearMonth.yy &&
         getImg(yearMonth).then((files) => {
           this.setState(files);
           this.state.length ? renderImgCard() : renderNoImageMsg();
